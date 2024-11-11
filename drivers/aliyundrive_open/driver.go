@@ -94,9 +94,12 @@ func (d *AliyundriveOpen) link(ctx context.Context, file model.Obj) (*model.Link
 		url = utils.Json.Get(res, "streamsUrl", d.LIVPDownloadFormat).ToString()
 	}
 	exp := time.Minute
+	
 	return &model.Link{
-		URL:        url,
-		Expiration: &exp,
+		URL:         url,
+		Expiration:  &exp,
+		Concurrency: 6,
+		PartSize:    10 * utils.MB,
 	}, nil
 }
 
